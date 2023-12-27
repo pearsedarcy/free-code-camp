@@ -22,4 +22,11 @@ const monsterHealthText = document.querySelector("#monsterHealth");
 button1.onclick = goStore;
 button2.onclick = goCave;
 button3.onclick = fightDragon;
-// STEP 37 - Day 2
+// STEP 39 - Day 2
+function goStore() {
+  console.log("Going to store.");
+}
+// STEP 41 - Day 2
+function goCave() {
+  console.log("Going to cave.");
+}
