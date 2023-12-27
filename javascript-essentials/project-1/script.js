@@ -4,7 +4,7 @@ let gold = 50;
 let currentWeapon = 0;
 let fighting;
 let monsterHealth;
-let inventory = ["stick", "dagger", "sword"];
+let inventory = ["stick"];
 const button1 = document.querySelector("#button1");
 const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
@@ -15,6 +15,25 @@ const healthText = document.querySelector("#healthText");
 const goldText = document.querySelector("#goldText");
 const monsterStats = document.querySelector("#monsterStats");
 const monsterName = document.querySelector("#monsterName");
+// STEP 82 - Day 2
+const weapons = [
+  {
+    name: "stick",
+    power: 5,
+  },
+  {
+    name: "dagger",
+    power: 30,
+  },
+  {
+    name: "claw hammer",
+    power: 50,
+  },
+  {
+    name: "sword",
+    power: 100,
+  },
+];
 // STEP 35 - Day 2
 const monsterHealthText = document.querySelector("#monsterHealth");
 // STEP 36 - Day 2
@@ -31,15 +50,40 @@ function goStore() {
 }
 // STEP 41 - Day 2
 function goCave() {
-  console.log("Going to cave.");
+  update(locations[2]);
 }
 // STEP 42 - Day 2
 function fightDragon() {
   console.log("Fighting dragon.");
 }
-// STEP 47 - Day 2
-function buyWeapon() {}
-function buyHealth() {}
+
+function buyWeapon() {
+  if (currentWeapon < 3) {
+    if (gold >= 30) {
+      gold -= 30;
+      currentWeapon++;
+      goldText.innerText = gold;
+      let newWeapon = weapons[currentWeapon].name;
+      text.innerText = "You now have a " + newWeapon + ".";
+      inventory.push(newWeapon);
+      text.innerText += " In your inventory you have: " + inventory;
+    } else {
+      text.innerText = "You do not have enough gold to buy a weapon.";
+    }
+  } else {
+    text.innerText = "You already have all the weapons my Dawwg";
+  }
+}
+function buyHealth() {
+  if (gold >= 10) {
+    gold -= 10;
+    health += 10;
+    goldText.innerText = gold;
+    healthText.innerText = health;
+  } else {
+    text.innerText = "You do not have enough gold to buy health.";
+  }
+}
 // STEP 51 - Day 2
 function update(location) {
   button1.innerText = location["button text"][0];
@@ -67,10 +111,10 @@ const locations = [
     "button functions": [buyHealth, buyWeapon, goTown],
     text: "You enter the store.",
   },
-  {
-    name: "cave",
-    "button text": ["Fight slime", "Fight fanged beast", "Go to town square"],
-    "button functions": [fightSlime, fightBeast, goTown],
-    text: "You enter the cave. You see some monsters.",
-  },
+  // {
+  //   name: "cave",
+  //   "button text": ["Fight slime", "Fight fanged beast", "Go to town square"],
+  //   "button functions": [fightSlime, fightBeast, goTown],
+  //   text: "You enter the cave. You see some monsters.",
+  // },
 ];
