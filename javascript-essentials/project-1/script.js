@@ -40,3 +40,7 @@ function goCave() {
 function fightDragon() {
   console.log("Fighting dragon.");
 }
+// STEP 47 - Day 2
+function buyWeapon() {}
+function buyHealth() {}
+function goTown() {}
