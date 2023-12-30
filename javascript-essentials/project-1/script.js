@@ -9,7 +9,6 @@ let inventory = ["stick"];
 const button1 = document.querySelector("#button1");
 const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
-
 const text = document.querySelector("#text");
 const xpText = document.querySelector("#xpText");
 const healthText = document.querySelector("#healthText");
@@ -76,7 +75,7 @@ const locations = [
       "Go to town square",
       "Go to town square",
     ],
-    "button functions": [goTown, goTown, goTown],
+    "button functions": [goTown, goTown, easterEgg],
     text: 'The monster screams "Arg!" as it dies. You gain experience points and find gold.',
   },
   {
@@ -100,9 +99,9 @@ const locations = [
 ];
 
 // initialize buttons
-button1.onclick = goStore();
-button2.onclick = goCave();
-button3.onclick = fightDragon();
+button1.onclick = goStore;
+button2.onclick = goCave;
+button3.onclick = fightDragon;
 
 function update(location) {
   monsterStats.style.display = "none";
@@ -217,6 +216,16 @@ function attack() {
   }
 }
 
+function getMonsterAttackValue(level) {
+  const hit = level * 5 - Math.floor(Math.random() * xp);
+  console.log(hit);
+  return hit > 0 ? hit : 0;
+}
+
+function isMonsterHit() {
+  return Math.random() > 0.2 || health < 20;
+}
+
 function dodge() {
   text.innerText = "You dodge the attack from the " + monsters[fighting].name;
 }
@@ -248,6 +257,7 @@ function restart() {
   xpText.innerText = xp;
   goTown();
 }
+
 function easterEgg() {
   update(locations[7]);
 }
@@ -266,4 +276,19 @@ function pick(guess) {
     numbers.push(Math.floor(Math.random() * 11));
   }
   text.innerText = "You picked " + guess + ". Here are the random numbers:\n";
+  for (let i = 0; i < 10; i++) {
+    text.innerText += numbers[i] + "\n";
+  }
+  if (numbers.indexOf(guess) !== -1) {
+    text.innerText += "Right! You win 20 gold!";
+    gold += 20;
+    goldText.innerText = gold;
+  } else {
+    text.innerText += "Wrong! You lose 10 health!";
+    health -= 10;
+    healthText.innerText = health;
+    if (health <= 0) {
+      lose();
+    }
+  }
 }
